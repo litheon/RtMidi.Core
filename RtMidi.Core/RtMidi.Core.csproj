@@ -18,11 +18,6 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
-        <None Include="librtmidi.dylib">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <PackagePath>build\</PackagePath>
-            <Pack>true</Pack>
-        </None>
         <None Include="rtmidi.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <PackagePath>build\</PackagePath>
@@ -42,22 +37,22 @@
             <PackagePath>build\</PackagePath>
             <Pack>true</Pack>
         </None>
-        <None Include="..\icon.png" Pack="true" PackagePath="\"/>
-        <None Include="..\README.md" Pack="true" PackagePath="\"/>
+        <None Include="..\icon.png" Pack="true" PackagePath="\" />
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Unmanaged\"/>
-        <Folder Include="Unmanaged\API\"/>
-        <Folder Include="Unmanaged\Devices\"/>
-        <Folder Include="Unmanaged\Devices\Infos\"/>
-        <Folder Include="Devices\"/>
-        <Folder Include="Devices\Infos\"/>
-        <Folder Include="Devices\Nrpn\"/>
-        <Folder Include="Enums\"/>
-        <Folder Include="Enums\Core"/>
-        <Folder Include="Messages\"/>
+        <Folder Include="Unmanaged\" />
+        <Folder Include="Unmanaged\API\" />
+        <Folder Include="Unmanaged\Devices\" />
+        <Folder Include="Unmanaged\Devices\Infos\" />
+        <Folder Include="Devices\" />
+        <Folder Include="Devices\Infos\" />
+        <Folder Include="Devices\Nrpn\" />
+        <Folder Include="Enums\" />
+        <Folder Include="Enums\Core" />
+        <Folder Include="Messages\" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Serilog" Version="2.8.0"/>
+        <PackageReference Include="Serilog" Version="2.8.0" />
     </ItemGroup>
 </Project>

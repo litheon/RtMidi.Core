@@ -7,7 +7,7 @@ namespace RtMidi.Core.Devices
     internal class MidiOutputDevice : MidiDevice, IMidiOutputDevice
     {
         private readonly IRtMidiOutputDevice _outputDevice;
-        
+
         public MidiOutputDevice(IRtMidiOutputDevice outputDevice, string name) : base(outputDevice, name)
         {
             _outputDevice = outputDevice;
@@ -36,7 +36,7 @@ namespace RtMidi.Core.Devices
 
         public bool Send(in NrpnMessage nrpnMessage)
             => nrpnMessage.Encode().All(msg => Send(in msg));
-        
+
         public bool Send(in SysExMessage sysExMessage)
             => _outputDevice.SendMessage(sysExMessage.Encode());
 
@@ -51,5 +51,8 @@ namespace RtMidi.Core.Devices
 
         public bool Send(in TuneRequestMessage tuneRequestMessage)
             => _outputDevice.SendMessage(tuneRequestMessage.Encode());
+
+        public bool Send(in byte[] rawBytes)
+            => _outputDevice.SendMessage(rawBytes);
     }
 }

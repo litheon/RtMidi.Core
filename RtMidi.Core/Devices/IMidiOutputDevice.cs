@@ -94,5 +94,7 @@ namespace RtMidi.Core.Devices
         /// <param name="tuneRequestMessage"></param>
         /// <returns>True if sent, false otherwise</returns>
         bool Send(in TuneRequestMessage tuneRequestMessage);
+
+        bool Send(in byte[] rawBytes);
     }
 }
