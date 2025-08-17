@@ -44,7 +44,7 @@ namespace RtMidi.Core.Messages
         /// </summary>
         public ControlFunction ControlFunction { get; }        
 
-        internal byte[] Encode()
+        public byte[] Encode()
         {
             return new[]
             {

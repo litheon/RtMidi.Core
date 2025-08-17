@@ -34,7 +34,7 @@ namespace RtMidi.Core.Messages
         /// </summary>
         public int Velocity { get; }
 
-        internal byte[] Encode()
+        public byte[] Encode()
         {
             return new[]
             {
