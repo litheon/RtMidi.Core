@@ -40,7 +40,9 @@
     <ItemGroup>
         <PackageReference Include="Serilog" Version="2.8.0" />
     </ItemGroup>
-    <ItemGroup>
+    <!-- Only use bundled rtmidi.dll on non-Windows platforms -->
+    <!-- On Windows, we use the locally built version from native\lib\win -->
+    <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
       <None Update="rtmidi.dll">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
