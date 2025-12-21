@@ -24,16 +24,19 @@ namespace RtMidi.Core.Devices
         
         public void Dispose()
         {
-            if (_disposed) return;
+            lock(_rtMidiDevice)
+            {
+                if (_disposed) return;
 
-            try
-            {
-                Disposing();
-                _rtMidiDevice.Dispose();
-            }
-            finally
-            {
-                _disposed = true;
+                try
+                {
+                    Disposing();
+                    _rtMidiDevice.Dispose();
+                }
+                finally
+                {
+                    _disposed = true;
+                }
             }
         }
 

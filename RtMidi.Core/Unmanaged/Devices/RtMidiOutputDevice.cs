@@ -11,22 +11,25 @@ namespace RtMidi.Core.Unmanaged.Devices
 
         public bool SendMessage(byte[] message)
         {
-            if (message == null)
-                throw new ArgumentNullException(nameof(message));
-
-            // Cannot send, if device is not open
-            if (!IsOpen) return false;
-
-            try
+            lock (this)
             {
-                var result = RtMidiC.Output.SendMessage(Handle, message, message.Length);
-                CheckForError();
-                return result == 0;
-            }
-            catch (Exception e)
-            {
-                Log.Error(e, "Error while sending message");
-                return false;
+                if (message == null)
+                    throw new ArgumentNullException(nameof(message));
+
+                // Cannot send, if device is not open
+                if (!IsOpen) return false;
+
+                try
+                {
+                    var result = RtMidiC.Output.SendMessage(Handle, message, message.Length);
+                    CheckForError();
+                    return result == 0;
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e, "Error while sending message");
+                    return false;
+                }
             }
         }
 
@@ -47,15 +50,17 @@ namespace RtMidi.Core.Unmanaged.Devices
 
         protected override void DestroyDevice()
         {
-            try
+            lock (this)
             {
-                Log.Debug("Freeing output device handle");
-                RtMidiC.Output.Free(Handle);
-                CheckForError();
-            }
-            catch (Exception e)
-            {
-                Log.Error(e, "Error while freeing output device handle");
+                try
+                {
+                    Log.Debug("Freeing output device handle");
+                    RtMidiC.Output.Free(Handle);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e, "Error while freeing output device handle");
+                }
             }
         }
     }

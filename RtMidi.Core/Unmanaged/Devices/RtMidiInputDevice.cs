@@ -149,7 +149,6 @@ namespace RtMidi.Core.Unmanaged.Devices
 
                 Log.Debug("Freeing input device handle");
                 RtMidiC.Input.Free(Handle);
-                CheckForError();
 
 #if MACCATALYST
                 if (_selfHandle.IsAllocated)
