@@ -37,8 +37,11 @@ namespace RtMidi.Core.Unmanaged
         {
             get
             {
-                for (uint port = 0; port < _defaultInputDevice.GetPortCount(); port++)
+                var inputDevicePortCount = _defaultInputDevice.GetPortCount();
+                Console.WriteLine($"inputDevicePortCount - {inputDevicePortCount}");
+                for (uint port = 0; port < inputDevicePortCount; port++)
                 {
+                    Console.WriteLine($"Iterate input device - {port}");
                     yield return new(port, _defaultInputDevice.GetPortName(port));
                 }
             }

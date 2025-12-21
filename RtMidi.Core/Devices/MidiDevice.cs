@@ -1,5 +1,6 @@
 ﻿using RtMidi.Core.Unmanaged.Devices;
 using System;
+using System.Threading;
 
 namespace RtMidi.Core.Devices
 {
@@ -11,6 +12,7 @@ namespace RtMidi.Core.Devices
 
         protected MidiDevice(IRtMidiDevice rtMidiDevice, string name)
         {
+            Console.WriteLine($"MidiDevice constructor - {name}");
             _rtMidiDevice = rtMidiDevice ?? throw new ArgumentNullException(nameof(rtMidiDevice));
             Name = name;
         }

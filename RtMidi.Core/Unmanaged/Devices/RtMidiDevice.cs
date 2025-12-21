@@ -50,6 +50,7 @@ namespace RtMidi.Core.Unmanaged.Devices
             {
                 Log.Debug("Fetching port name, for port {PortNumber}", _portNumber);
                 var portName = RtMidiC.GetPortName(_handle, _portNumber);
+                Console.WriteLine($"Got port name - {portName}");
                 CheckForError();
 
                 Log.Debug("Opening port {PortNumber} using name {PortName}", _portNumber, portName);
@@ -62,6 +63,7 @@ namespace RtMidi.Core.Unmanaged.Devices
             }
             catch (Exception e) 
             {
+                Console.WriteLine($"Unable to open port number {_portNumber}");
                 Log.Error(e, "Unable to open port number {PortNumber}", _portNumber);
                 return false;
             }
@@ -91,16 +93,19 @@ namespace RtMidi.Core.Unmanaged.Devices
         /// <returns>Number of ports</returns>
         internal uint GetPortCount()
         {
+            Console.WriteLine("GetPortCount - Begin");
             if (!EnsureDevice()) return 0;
-
+            Console.WriteLine("GetPortCount - Have Device");
             try
             {
                 var count = RtMidiC.GetPortCount(_handle);
+                Console.WriteLine($"Sucessfully got port count - {count}");
                 CheckForError();
                 return count;
             }
             catch (Exception e)
             {
+                Console.WriteLine($"Error while getting number of ports");
                 Log.Error(e, "Error while getting number of ports");
                 return 0;
             }
@@ -144,14 +149,20 @@ namespace RtMidi.Core.Unmanaged.Devices
 
         protected static void CheckForError(IntPtr handle)
         {
-            if (handle == IntPtr.Zero) return;
+            if (handle == IntPtr.Zero)
+            {
+                Console.WriteLine("Handle was zero");
+                return;
+            }
 
             var wrapper = (RtMidiWrapper)Marshal.PtrToStructure(handle, typeof(RtMidiWrapper));
             if (!wrapper.Ok)
             {
-                Log.Error("Error detected from RtMidi API '{ErrorMessage}'", wrapper.ErrorMessage);
+                Console.WriteLine($"Error detected from RtMidi API '{wrapper.ErrorMessage}'");
                 throw new RtMidiApiException($"Error detected from RtMidi API '{wrapper.ErrorMessage}'");
             }
+
+            Console.WriteLine("No error");
         }
 
         public void Dispose() 
