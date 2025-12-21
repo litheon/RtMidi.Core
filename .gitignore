@@ -76,3 +76,6 @@ Thumbs.db
 **/.idea/**/*.iml
 **/.idea/**/contentModel.xml
 **/.idea/**/modules.xml
+
+# Package lock file
+RtMidi.Core/packages.lock.json
