@@ -32,8 +32,16 @@ namespace RtMidi.Core.Unmanaged.API
         internal static extern uint GetPortCount(IntPtr device);
 
         [DllImport(LibraryFile, EntryPoint = "rtmidi_get_port_name", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        internal static extern string GetPortName(IntPtr device, uint portNumber);
+        private static extern IntPtr GetPortNameNative(IntPtr device, uint portNumber);
+
+        internal static string? GetPortName(IntPtr device, uint portNumber)
+        {
+            IntPtr ptr = GetPortNameNative(device, portNumber);
+            if (ptr == IntPtr.Zero)
+                return null;
+
+            return Marshal.PtrToStringAnsi(ptr);
+        }
 
         internal static class Input
         {
